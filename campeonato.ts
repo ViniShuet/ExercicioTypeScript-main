@@ -18,7 +18,7 @@ interface Campeonato {
 function atualizarTabela(){
     tabelaCampeonato.innerHTML = "";
 
-    campeonatos.forEach(c => {
+    campeonatos.forEach((c : Campeonato) => {
         tabelaCampeonato.innerHTML += `
         <tr>
             <td>${c.nome}</td>
@@ -26,14 +26,43 @@ function atualizarTabela(){
             <td>${c.tipo}</td>
             <td>${c.dataInicio}</td>
             <td>${c.dataFim}</td>
+            <td>
+                <button onclick="editarCampeonato(${c.id})"> Editar </button>
+                <button onclick="removerCampeonato(${c.id})"> Remover </button>
+            </td>
         </tr>
-        `
+        `;
     });
 
-   
 }
 
-//teste
+function editarCampeonato(id:number){
+    //find = busque dentro desse array...
+    const campeonato = campeonatos.find((c:Campeonato) => c.id == id); 
+    //se nao achar nenhum campeonato
+    if(!campeonato) 
+        return;
+
+    (document.getElementById("nome") as HTMLInputElement).value = campeonato.nome;
+    (document.getElementById("categoria") as HTMLSelectElement).value = campeonato.categoria;
+    (document.getElementById("tipo") as HTMLSelectElement).value = campeonato.tipo;
+    (document.getElementById("dataInicio") as HTMLInputElement).value = campeonato.dataInicio;
+    (document.getElementById("dataFim") as HTMLInputElement).value = campeonato.dataFim;
+
+    //findIndex = busca o index do objeto (dentro da tabela campeonatos, com o id)
+    const campIndex = campeonatos.findIndex((c:Campeonato) => c.id == id);
+
+    //validar se encontrou algum item
+    //se for diferente, quer dizer que ele encontrou = -1
+    if(campIndex !== -1){
+        //se ja tem o mesmo index na lista = remover da lista
+        campeonatos.splice(campIndex, 1);
+    }
+
+    salvarLocalStorage();
+    atualizarTabela();
+
+}
 
 function salvarLocalStorage(){
     let campeonatosSalvar = JSON.stringify(campeonatos)
@@ -47,14 +76,16 @@ function salvar(event:Event){
     const novoCampeonato : Campeonato = {
         id:Date.now(),
         nome: (document.getElementById("nome") as HTMLInputElement).value,
-        categoria:"profissional",
-        tipo:"Pontos corridos",
-        dataFim:"2025-10-30",
-        dataInicio:"2025-04-01"
+        categoria: (document.getElementById("categoria") as HTMLSelectElement).value,
+        tipo:(document.getElementById("tipo") as HTMLSelectElement).value,
+        dataFim: (document.getElementById("dataInicio") as HTMLInputElement).value,
+        dataInicio:(document.getElementById("dataFim") as HTMLInputElement).value
     }
     campeonatos.push(novoCampeonato)
-    atualizarTabela()
-    salvarLocalStorage()
+    atualizarTabela();
+    salvarLocalStorage();
+    formCampeonato.reset();
+    alert("Cadastrado com sucesso!")
 
 }
 
