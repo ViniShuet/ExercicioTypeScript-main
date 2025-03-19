@@ -64,6 +64,21 @@ function editarCampeonato(id:number){
 
 }
 
+function removerCampeonato(id:number){
+     //findIndex = busca o index do objeto (dentro da tabela campeonatos, com o id)
+     const campIndex = campeonatos.findIndex((c:Campeonato) => c.id == id);
+
+     //validar se encontrou algum item
+     //se for diferente, quer dizer que ele encontrou = -1
+     if(campIndex !== -1){
+         //se ja tem o mesmo index na lista = remover da lista
+         campeonatos.splice(campIndex, 1);
+     }
+ 
+     salvarLocalStorage();
+     atualizarTabela();
+}
+
 function salvarLocalStorage(){
     let campeonatosSalvar = JSON.stringify(campeonatos)
     localStorage.setItem("campeonatos", campeonatosSalvar)
