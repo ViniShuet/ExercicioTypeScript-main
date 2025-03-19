@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de campeonato</title>
+</head>
+
+<body>
+
+    <h2>Cadastro de campeonato</h2>
+    <form id="formCampeonato">
+        <p>
+            Nome:
+            <input type="text" placeholder="Nome campeonato" id="nome" />
+        </p>
+        <p>
+            Categoria:
+            <select id="categoria">
+                <option>Selecione</option>
+                <option>Amador</option>
+                <option>Profissional</option>
+            </select>
+        </p>
+        <p>
+            Tipo:
+            <select id="tipo">
+                <option>Selecione</option>
+                <option>Mata-Mata</option>
+                <option>Pontos corridos</option>
+            </select>
+        </p>
+        <p>
+            Data início: <input type="date" id="dataInicio">
+            data fim: <input type="date" id="dataFim">
+        </p>
+        <input type="button" onclick="salvar(event)" value="cadadastrar" />
+    </form>
+
+    <hr>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Categoria</th>
+                <th>Tipo</th>
+                <th>Início</th>
+                <th>Término</th>
+            </tr>
+        </thead>
+        <tbody id="tbCampeonatos">
+
+        </tbody>
+
+    </table>
+
+</body>
+
+<script type="text/javascript" src="campeonato.js"></script>
+
+</html>
