@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Partidas</title>
+</head>
+<body>
+
+    <h2>Cadastro de Partida</h2>
+    <form id="formPartida">
+        <p>
+            Time Mandante: 
+            <input type="text" placeholder="Time Mandante" id="timeMandante" />
+        </p>
+        <p>
+            Time Visitante: 
+            <input type="text" placeholder="Time Visitante" id="timeVisitante" />
+        </p>
+        <p>
+            Campeonato:
+            <select id="campeonato">
+                
+            </select>
+        </p>
+        <p>
+            Data: <input type="date" id="dataPartida">
+        </p>
+        <input type="submit" value="Cadastrar" />
+    </form>
+
+    <hr>
+
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Time Mandante</th>
+                <th>Time Visitante</th>
+                <th>Campeonato</th>
+                <th>Data Partida</th>
+            </tr>
+        </thead>
+        <tbody id="tbPartidas">
+        
+        </tbody>
+    </table>
+   
+</body>
+<script type="text/javascript" src="partida.js"></script>
+</html>
