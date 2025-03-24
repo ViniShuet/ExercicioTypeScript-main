@@ -2,6 +2,7 @@ var formPartida = document.getElementById("formPartida") as HTMLFormElement;
 var tabelabPartidas = document.getElementById("tbPartidas") as HTMLTableSectionElement;
 var partidas = JSON.parse(localStorage.getItem("partidas") || "[]");
 var campeonatos = JSON.parse(localStorage.getItem("campeonatos") || "[]");
+var times = JSON.parse(localStorage.getItem("times") || "[]");
 
 interface Partida {
     id: number;
@@ -21,6 +22,18 @@ function carregarCampeonatos() {
         option.value = campeonato.nome;
         option.textContent = campeonato.nome;
         selectCampeonato.appendChild(option);
+    });
+}
+
+function carregarTimes() {
+    const selectTime = document.getElementById("time") as HTMLSelectElement;
+    selectTime.innerHTML = ""; 
+
+    times.forEach((time: { nomeTime: string }) => {
+        const option = document.createElement("option");
+        option.value = time.nomeTime;
+        option.textContent = time.nomeTime;
+        selectTime.appendChild(option);
     });
 }
 
