@@ -3,6 +3,7 @@ var formPartida = document.getElementById("formPartida");
 var tabelabPartidas = document.getElementById("tbPartidas");
 var partidas = JSON.parse(localStorage.getItem("partidas") || "[]");
 var campeonatos = JSON.parse(localStorage.getItem("campeonatos") || "[]");
+var times = JSON.parse(localStorage.getItem("times") || "[]");
 function carregarCampeonatos() {
     const selectCampeonato = document.getElementById("campeonato");
     selectCampeonato.innerHTML = "";
@@ -11,6 +12,16 @@ function carregarCampeonatos() {
         option.value = campeonato.nome;
         option.textContent = campeonato.nome;
         selectCampeonato.appendChild(option);
+    });
+}
+function carregarTimes() {
+    const selectTime = document.getElementById("time");
+    selectTime.innerHTML = "";
+    times.forEach((time) => {
+        const option = document.createElement("option");
+        option.value = time.nomeTime;
+        option.textContent = time.nomeTime;
+        selectTime.appendChild(option);
     });
 }
 function editarPartida(id) {

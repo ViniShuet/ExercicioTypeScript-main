@@ -6,28 +6,28 @@ var times = JSON.parse(localStorage.getItem("times") || "[]")
 interface Time{
     id:number,
     nomeTime:String,
-    nomeAbreviadoTime:String
+    nomeCurto:String
 }
 
-function atualizarTabelaTime(){
+// Função para atualizar a tabela de times
+function atualizarTabelaTime() {
     tbTime.innerHTML = "";
 
-    times.forEach((t : Time) => {
+    times.forEach((t: Time) => {
         tbTime.innerHTML += `
         <tr>
             <td>${t.nomeTime}</td>
-            <td>${t.nomeAbreviadoTime}</td>
+            <td>${t.nomeCurto}</td>
             <td>
-                <button onclick="editarCampeonato(${t.id})"> Editar </button>
-                <button onclick="removerCampeonato(${t.id})"> Remover </button>
+                <button onclick="editarTime(${t.id})">Editar</button>
+                <button onclick="removerTime(${t.id})">Remover</button>
             </td>
         </tr>
         `;
     });
-
 }
 
-function salvarLocalStorageTime(){
+function salvarTimeStorage(){
     let timesSalvar = JSON.stringify(times)
     localStorage.setItem("times", timesSalvar)
 }
@@ -39,56 +39,51 @@ function salvarTime(event:Event){
     const novoTime : Time = {
         id:Date.now(),
         nomeTime: (document.getElementById("nomeTime") as HTMLInputElement).value,
-        nomeAbreviadoTime: (document.getElementById("nomeAbreviadoTime") as HTMLInputElement).value
+        nomeCurto: (document.getElementById("nomeCurto") as HTMLInputElement).value
     }
-    campeonatos.push(novoTime)
+    times.push(novoTime)
     atualizarTabelaTime();
-    salvarLocalStorageTime();
+    salvarTimeStorage();
     formTime.reset();
     alert("Cadastrado com sucesso!")
 
 }
 
+
 function editarTime(id:number){
     //find = busque dentro desse array...
-    const time = times.find((t:Time) => t.id == id); 
-    //se nao achar nenhum campeonato
-    if(!time) 
-        return;
+        const time = times.find((p:Time) => p.id == id); 
+        //se nao achar nenhum campeonato
+        if(!time) 
+            return;
 
-    (document.getElementById("nomeTime") as HTMLInputElement).value = time.nomeTime;
-    (document.getElementById("nomeAbreviadoTime") as HTMLInputElement).value = time.nomeAbreviadoTime;
+        (document.getElementById("nomeTime") as HTMLInputElement).value = time.nomeTime;
+        (document.getElementById("nomeCurto") as HTMLInputElement).value = time.nomeCurto;
 
-    //findIndex = busca o index do objeto (dentro da tabela campeonatos, com o id)
-    const timeIndex = times.findIndex((t:Time) => t.id == id);
+        //findIndex = busca o index do objeto (dentro da tabela campeonatos, com o id)
+        const timeIndex = times.findIndex((p:Time) => p.id == id);
 
-    //validar se encontrou algum item
-    //se for diferente, quer dizer que ele encontrou = -1
-    if(timeIndex !== -1){
-        //se ja tem o mesmo index na lista = remover da lista
-        campeonatos.splice(timeIndex, 1);
+        //validar se encontrou algum item
+        //se for diferente, quer dizer que ele encontrou = -1
+        if(timeIndex !== -1){
+            //se ja tem o mesmo index na lista = remover da lista
+            times.splice(timeIndex, 1);
+        }
+
+        salvarTimeStorage();
+        atualizarTabelaTime();
     }
 
-    salvarLocalStorageTime();
-    atualizarTabelaTime();
 
-}
-
-function removerTime(id:number){
-    //findIndex = busca o index do objeto (dentro da tabela campeonatos, com o id)
-    const timeIndex = times.findIndex((t:Time) => t.id == id);
-
-    //validar se encontrou algum item
-    //se for diferente, quer dizer que ele encontrou = -1
-    if(timeIndex !== -1){
-        //se ja tem o mesmo index na lista = remover da lista
-        campeonatos.splice(timeIndex, 1);
+function removerTime(id: number) {
+    const timeIndex = times.findIndex((t: Time) => t.id === id);
+    if (timeIndex !== -1) {
+        times.splice(timeIndex, 1);
     }
 
-    salvarLocalStorageTime();
+    salvarTimeStorage();
     atualizarTabelaTime();
-
 }
 
-formTime.addEventListener("submit", salvar)
+formTime.addEventListener("submit", salvarTime)
 atualizarTabelaTime()
